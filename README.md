@@ -57,7 +57,11 @@ To quit program selecter show thumb down. Example for hand gestures is shown in 
 ## Acknowledgments
 
 * mit-han-lab
-*JetsonHacksNano
-*
+* JetsonHacksNano
+
+## Todo
+* write better code
+* implement more programs
+* implement internet check, and shutdown if not connected
 
 
