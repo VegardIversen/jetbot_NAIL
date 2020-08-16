@@ -59,6 +59,13 @@ To quit program selecter show thumb down. Example for hand gestures is shown in 
 * mit-han-lab
 * JetsonHacksNano
 
+## Known issues/fix
+* Camera problems, write: 
+``` 
+sudo systemctl restart nvargus-daemon
+```
+in consoll
+
 ## Todo
 * write better code
 * implement more programs
