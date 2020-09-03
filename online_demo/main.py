@@ -19,18 +19,22 @@ from jetbot import Robot
 import subprocess
 import face
 import live_demo
+import contours
+import disco
+from speak import speak
+from speak_back import speak_back
 
 SOFTMAX_THRES = 0
 HISTORY_LOGIT = True
 REFINE_OUTPUT = True
 
-
-def speak(text):
-        global language
-        tts = gTTS(text=text, lang=language)
-        filename = 'voice.mp3'
-        tts.save(filename)
-        playsound.playsound(filename)
+#mulighet til å bruke if h[-3:] etc for styring av valg
+#def speak(text):
+#        global language
+#        tts = gTTS(text=text, lang=language)
+#        filename = 'voice.mp3'
+#        tts.save(filename)
+#        playsound.playsound(filename)
 
 def torch2tvm_module(torch_module: torch.nn.Module, torch_inputs: Tuple[torch.Tensor, ...], target):
     torch_module.eval()
@@ -277,8 +281,9 @@ def main():
     spoken_history = None
     k = 0
     hist_flag = 0
-    programs = ['collision avoidance','Smile recognizer', 'Contours recognizer', 'Disco']
-    programsNo = ['Kollisjons unngåelse','Smil gjennkjenning', 'Kontor gjennkjenning', 'Disco']
+    programs_run = ['live_demo.py','speak_back.py', 'face.py', 'disco.py']
+    programs = ['collision avoidance','Speech repeater', 'Smile recognnizer', 'Disco']
+    programsNo = ['Kollisjons unngåelse','Tale repeterer', 'Smil gjenkjenning', 'Disco']
     select_prog_flag = 0
     print("Open camera...")
     cap = cv2.VideoCapture(1)
@@ -324,7 +329,7 @@ def main():
     i_frame = -1
     
     print("Ready!")
-    speak('Choose language after this message, thumb up for Norwegian and thumb down for english')
+    speak('Choose language after this message, thumb up for Norwegian and thumb down for english',language)
     while True:
         i_frame += 1
         _, img = cap.read()  # (480, 640, 3) 0 ~ 255
@@ -362,62 +367,73 @@ def main():
 
             t2 = time.time()
             print(f"{index} {catigories[idx]}")
-            #if language_flag==0:
-                #speak('Choose language after this message, thumb up for Norwegian and thumb down for english')
+          
             if(language_flag==0 and idx == history[-1] and idx != history[-2] and select_prog_flag != 1):
                 if idx == 20:
                     language = 'no'
-                    speak('språk norsk')
+                    speak('språk norsk',language)
                     language_flag = 1
                 elif idx == 19:
-                    speak('Language English')
+                    speak('Language English',language)
                     language_flag = 1
 			 
-                
-            if (idx == history[-1] and idx != history[-2] and select_prog_flag != 1):
+ 
+            if (idx == history[-1] and idx != history[-2] and select_prog_flag != 1): #action selecter
                 if idx == 26:
                     select_prog_flag = 1
             if(select_prog_flag == 1):
                 if hist_flag == 0:
                     if language == 'en':
                         print('choose program, thumb up for select, swipe for next and thumb down to exit')
-                        speak('choose program, thumb up for select, swipe for next and thumb down to exit')
+                        speak('choose program, thumb up for select, swipe for next and thumb down to exit',language)
                     else:
                         print('Velg program, tommel opp for velg, sveip for neste og tommel ned for å avslutte')
-                        speak('Velg program, tommel opp for velg, sveip for neste og tommel ned for å avslutte') 
+                        speak('Velg program, tommel opp for velg, sveip for neste og tommel ned for å avslutte',language) 
                     #time.sleep(10)
                     hist_flag = 1
                 print(f'Do you want to run {programs[k]}')
                 if k!= spoken_history:
                     if language == 'en':
-                        speak(f'{programs[k]}')
+                        speak(f'{programs[k]}',language)
                     else:
-                        speak(f'{programsNo[k]}')
+                        speak(f'{programsNo[k]}',language)
                     spoken_history = k
-            if history[-1] == 20 and history[-2] == 20 and select_prog_flag ==1 and history[-3] != idx:
+            if history[-1] == 20 and history[-2] == 20 and history[-3]== 20 and history[-4] != idx and select_prog_flag ==1:
                 print(f'running {programs[k]} ')
+                speak(f'running {programs[k]}', language)
+                if k == 0:
+                    live_demo.collision_avoidance()
+                elif k==1:
                 #live_demo.collision_avoidance
-                #subprocess.run('python3 face.py', shell=True)
-                #face.face_main()
+                #subprocess.run(f'python3 {programs_run[k]}', shell=True)
+                    speak_back(language)
+                elif k == 2:
+                    print('yes')
+                    #face.face_main()
+                elif k == 3:
+                    disco.disco()
+                    
                 
-            elif history[-1] == 17 and history[-2] == 17 and select_prog_flag ==1 and history[-3] != idx:
+            elif history[-1] == 17 and history[-2] == 17  and history[-3]== 17 and history[-4] != idx and select_prog_flag ==1:
                 time.sleep(2)
                 if k==len(programs)-1:
                     k = 0
                 else:
                     k += 1
-            elif history[-1] == 16 and history[-2] == 16 and select_prog_flag ==1 and history[-3] != idx:
+            elif history[-1] == 16 and history[-2] == 16 and history[-3]== 16 and history[-4] != idx and select_prog_flag ==1:
                 time.sleep(2)                
                 if k==0:
                     k = len(programs)-1
                 else:
                     k -= 1
-            elif history[-1] == 19 and history[-2] == 19 and select_prog_flag ==1:
+            elif history[-1] == 19 and history[-2] == 19 and history[-3]== 19 and history[-4] != idx and select_prog_flag ==1:
                 print('exiting')
                 select_prog_flag = 0
                 hist_flag = 0
                 k = 0
-                
+            if history[-1] == 14 and history[-2] == 14 and history[-3] == 14 and history[-4] != idx:
+                speak('Turning off','en')
+                break
                 
                     
                 #speak(catigories[idx])

@@ -42,7 +42,9 @@ def update(change):
     time.sleep(0.001)
 
 def collision_avoidance():
+
 	global normalize, device, model, mean, camera, robot
+	i_frame = -1
 
 	model = torchvision.models.alexnet(pretrained=False)
 	model.classifier[6] = torch.nn.Linear(model.classifier[6].in_features, 2)
@@ -52,19 +54,26 @@ def collision_avoidance():
 	mean = 255.0 * np.array([0.485, 0.456, 0.406])
 	stdev = 255.0 * np.array([0.229, 0.224, 0.225])
 	camera = Camera.instance(width=224, height=224)
+    
 
 	normalize = torchvision.transforms.Normalize(mean, stdev)
 
 	robot = Robot()
-    
-	while True:
-		
-	    update({'new': camera.value})  # we call the function once to intialize
-
-	camera.observe(update, names='value')
 	robot.stop()
+	now = time.time()
+	stop_time = now + 120
+	while time.time() < stop_time:
+		i_frame += 1
+		if i_frame % 2 == 0:
+		
+			update({'new': camera.value})  # we call the function once to intialize
+		#cv2.imshow(camera.value)
 
-#collision_avoidance()
+	#camera.observe(update, names='value')
+	robot.stop()
+	camera.stop()
+
+collision_avoidance()
 robot = Robot()
 robot.stop()
 

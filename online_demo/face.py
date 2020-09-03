@@ -5,7 +5,7 @@ import traitlets
 import cv2
 import numpy as np
 import os
-
+from speak import speak
 import time
 import subprocess
 
@@ -45,7 +45,7 @@ def detect(gray, frame, face_seen):
                 face_seen = 0
  
         if smiles != ():
-            
+            speak('Nice smile','en')
             print('Nice smile')
         if eyes != ():
             print('hi eyes')
