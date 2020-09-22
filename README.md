@@ -64,7 +64,7 @@ To quit program selecter show thumb down. Example for hand gestures is shown in 
 ``` 
 sudo systemctl restart nvargus-daemon
 ```
-in consoll
+in consoll, password: jetbot. This is standard
 
 ## Todo
 * write better code
