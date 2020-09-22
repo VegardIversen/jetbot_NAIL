@@ -33,7 +33,9 @@ pip3 install requirements.txt
 
 
 ## Running the tests
-
+Start up robot by connecting usb from jetson nano to the orange usb port, and motor-controller to the regular usb port on the battery. 
+Open cmd (ctrl+shift+T).
+Turn on bluetooth speaker, should make a noice when connected. 
 Go into the the online_demo folder.
 ```
 cd temporal-shift-module/online_demo/
