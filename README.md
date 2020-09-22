@@ -50,7 +50,7 @@ thumb up for Norwegian and down for english
 Start by squeezing indexfinger and thumb together like a zoom out on a smartphone. This will start program selecter. Swipe left or rigth with a open hand to switch between programs. It can sometime double switch, so watch out for that. 
 thumb up to select a program, each program will run for a set amount of time before ending.
 To quit program selecter show thumb down. Example for hand gestures is shown in the [TSM Online Hand Gesture Recognition Demo](https://github.com/mit-han-lab/temporal-shift-module/tree/master/online_demo).
-To exit program. Show stopsign hand gesture (flat open hand towardscamera).
+To exit program. Show stopsign hand gesture (flat open hand towards camera).
 
 
 ## Built With
@@ -74,7 +74,7 @@ in consoll, password: jetbot. This is standard.
 Wifi or bluetooth not connecting. 
 try connect via screen and keyboard, or restart jetson nano until it works.
 
-first run can be abit slow. Run it multiple times before demo. It has to warm up
+First run can be a bit slow. Run it multiple times before demo. It has to warm up
 
 ## Todo
 * write better code
