@@ -73,7 +73,7 @@ def collision_avoidance():
 	robot.stop()
 	camera.stop()
 
-collision_avoidance()
-robot = Robot()
-robot.stop()
+#collision_avoidance()
+#robot = Robot()
+#robot.stop()
 
