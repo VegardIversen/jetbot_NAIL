@@ -50,7 +50,7 @@ thumb up for Norwegian and down for english
 Start by squeezing indexfinger and thumb together like a zoom out on a smartphone. This will start program selecter. Swipe left or rigth with a open hand to switch between programs. It can sometime double switch, so watch out for that. 
 thumb up to select a program, each program will run for a set amount of time before ending.
 To quit program selecter show thumb down. Example for hand gestures is shown in the [TSM Online Hand Gesture Recognition Demo](https://github.com/mit-han-lab/temporal-shift-module/tree/master/online_demo).
-To exit program, first exit program selecter. Then show stopsign hand gesture (flat open hand towardscamera).
+To exit program. Show stopsign hand gesture (flat open hand towardscamera).
 
 
 ## Built With
